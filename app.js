@@ -45,6 +45,28 @@ switch (comando) {
         let borrado = porHacer.borrar(argv.descripcion);
         console.log(borrado);
         break;
+
+    case 'filtrar':
+        console.log('Listar todas las tareas que tengan el estado especificado.');
+
+        let filterStatus = (argv.completado === "true");
+
+        let tareas =
+            porHacer.getListado().filter(
+                tarea => {
+                    let status = (tarea.completado === "true");
+                    return status === filterStatus;
+                });
+
+        for (let tarea of tareas) {
+            console.log('=============== Por Hacer =================='.blue);
+            console.log(tarea.descripcion);
+            console.log(`Estado: ${tarea.completado === true? 'Completado' : 'No completado'}`.grey);
+            console.log('============================================'.blue);
+        }
+
+        break;
+
     default:
         console.log("El comando introducido no es reconocido.");
 }
